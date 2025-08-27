@@ -1,6 +1,5 @@
 (function(){
   function injectCSS(){ 
-    // CSS tetap sama
   }
 
   function initPreroll(el){
@@ -34,7 +33,7 @@
       overlay.style.display='none';
       adVideo.style.display='block';
       countdown.style.display='block';
-      visitBtn.style.display='inline-block'; // tampil tombol Kunjungi
+      visitBtn.style.display='inline-block';
       adVideo.play();
       timeLeft = 5;
       adTimeEl.textContent = timeLeft;
@@ -57,7 +56,7 @@
       adVideo.style.display='none';
       skipBtn.style.display='none';
       countdown.style.display='none';
-      visitBtn.style.display='none'; // hilang saat iklan selesai / skip
+      visitBtn.style.display='none';
       mainVideo.style.display='block';
       mainVideo.play();
     }
