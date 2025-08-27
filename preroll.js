@@ -1,3 +1,34 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const visitBtn = document.getElementById("visit-btn");
+
+  const observer = new MutationObserver(() => {
+    const adVideo = document.querySelector(".preroll-player video");
+
+    if (adVideo) {
+      adVideo.addEventListener("play", () => {
+        visitBtn.style.display = "inline-block"; // tampil saat iklan mulai
+      });
+
+      adVideo.addEventListener("ended", () => {
+        visitBtn.style.display = "none"; // hilang saat iklan selesai
+      });
+
+      const skipBtn = document.querySelector(".preroll-skip");
+      if (skipBtn) {
+        skipBtn.addEventListener("click", () => {
+          visitBtn.style.display = "none"; // hilang saat skip
+        });
+      }
+
+      observer.disconnect();
+    }
+  });
+
+  observer.observe(document.querySelector(".preroll-player"), {
+    childList: true,
+    subtree: true
+  });
+}); 
 (function(){
   function injectCSS(){
     var css = `
