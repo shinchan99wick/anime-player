@@ -9,16 +9,16 @@
     var poster  = el.getAttribute('data-poster') || '';
 
     el.innerHTML =
-      '<div class="overlay-play"><div class="btn">▶</div></div>'+
-      '<video class="adVideo" playsinline preload="metadata" style="display:none;">'+
-        '<source src="'+adSrc+'" type="video/mp4">'+
-      '</video>'+
-      '<button class="skip-btn">Lewati Iklan</button>'+
-      '<div class="ad-countdown">Iklan: <span class="adTime">5</span>s</div>'+
-      '<a class="visit-btn" href="https://link-sponsor.com" target="_blank" style="display:none; position:absolute; bottom:10px; right:10px; z-index:9999; background:#28a745; color:#fff; padding:6px 12px; border-radius:6px; text-decoration:none;">🔗 Kunjungi</a>'+
-      '<video class="mainVideo" controls preload="metadata" style="display:none;" poster="'+poster+'">'+
-        '<source src="'+mainSrc+'" type="video/mp4">'+
-      '</video>';
+  '<div class="overlay-play"><div class="btn">▶</div></div>'+
+  '<video class="adVideo" playsinline preload="metadata" style="display:none;">'+
+    '<source src="'+adSrc+'" type="video/mp4">'+
+  '</video>'+
+  '<button class="skip-btn">Lewati Iklan</button>'+
+  '<div class="ad-countdown">Iklan: <span class="adTime">5</span>s</div>'+
+  '<a class="visit-btn" href="https://hancockanime.blogspot.com/" target="_blank" style="display:none; position:absolute; bottom:10px; right:10px; z-index:9999; background:#28a745; color:#fff; padding:6px 12px; border-radius:6px; text-decoration:none;">🔗 Kunjungi</a>'+
+  '<video class="mainVideo" controls preload="metadata" style="display:none;" poster="'+poster+'">'+
+    '<source src="'+mainSrc+'" type="video/mp4">'+
+  '</video>';
 
     var overlay   = el.querySelector('.overlay-play');
     var adVideo   = el.querySelector('.adVideo');
