@@ -1,5 +1,20 @@
 (function(){
-  function injectCSS(){ 
+  function injectCSS(){
+    var css = `
+      .preroll-player { position:relative; width:100%; aspect-ratio:16/9; background:#000; }
+      .preroll-player video { width:100%; height:100%; background:#000; }
+      .preroll-player .overlay-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:1000; }
+      .preroll-player .overlay-play .btn { background:rgba(0,0,0,0.6); color:#fff; font-size:40px; padding:20px; border-radius:50%; }
+      .preroll-player .skip-btn, .preroll-player .ad-countdown, .preroll-player .visit-btn {
+        position:absolute; padding:5px 10px; font-size:14px; border-radius:4px; z-index:9999;
+      }
+      .preroll-player .skip-btn { top:10px; right:10px; background:#000; color:#fff; border:1px solid #fff; cursor:pointer; display:none; }
+      .preroll-player .ad-countdown { top:10px; left:10px; background:#000; color:#fff; border:1px solid #fff; display:none; }
+      .preroll-player .visit-btn { bottom:10px; right:10px; background:#28a745; color:#fff; padding:6px 12px; border-radius:6px; text-decoration:none; display:none; }
+    `;
+    var style = document.createElement('style');
+    style.innerHTML = css;
+    document.head.appendChild(style);
   }
 
   function initPreroll(el){
@@ -7,17 +22,17 @@
     var mainSrc = el.getAttribute('data-main');
     var poster  = el.getAttribute('data-poster') || '';
 
-    el.innerHTML =
-  '<div class="overlay-play"><div class="btn">▶</div></div>'+
-  '<video class="adVideo" playsinline preload="metadata" style="display:none;">'+
-    '<source src="'+adSrc+'" type="video/mp4">'+
-  '</video>'+
-  '<button class="skip-btn">Lewati Iklan</button>'+
-  '<div class="ad-countdown">Iklan: <span class="adTime">5</span>s</div>'+
-  '<a class="visit-btn" href="https://hancockanime.blogspot.com/" target="_blank" style="display:none; position:absolute; bottom:10px; right:10px; z-index:9999; background:#28a745; color:#fff; padding:6px 12px; border-radius:6px; text-decoration:none;">🔗 Kunjungi</a>'+
-  '<video class="mainVideo" controls preload="metadata" style="display:none;" poster="'+poster+'">'+
-    '<source src="'+mainSrc+'" type="video/mp4">'+
-  '</video>';
+    el.innerHTML = 
+      '<div class="overlay-play"><div class="btn">▶</div></div>' +
+      '<video class="adVideo" playsinline preload="metadata" style="display:none;">' +
+        '<source src="'+adSrc+'" type="video/mp4">' +
+      '</video>' +
+      '<button class="skip-btn">Lewati Iklan</button>' +
+      '<div class="ad-countdown">Iklan: <span class="adTime">5</span>s</div>' +
+      '<a class="visit-btn" href="https://hancockanime.blogspot.com/" target="_blank">🔗 Kunjungi</a>' +
+      '<video class="mainVideo" controls preload="metadata" style="display:none;" poster="'+poster+'">' +
+        '<source src="'+mainSrc+'" type="video/mp4">' +
+      '</video>';
 
     var overlay   = el.querySelector('.overlay-play');
     var adVideo   = el.querySelector('.adVideo');
@@ -40,7 +55,7 @@
       timer = setInterval(function(){
         timeLeft--;
         adTimeEl.textContent = timeLeft;
-        if (!(timeLeft > 0)) {
+        if(timeLeft <= 0){
           clearInterval(timer);
           skipBtn.style.display='block';
         }
@@ -62,9 +77,19 @@
     }
   }
 
+  function observePlayers(){
+    var observer = new MutationObserver(() => {
+      var players = document.querySelectorAll('.preroll-player');
+      if(players.length){
+        players.forEach(initPreroll);
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, {childList:true, subtree:true});
+  }
+
   document.addEventListener('DOMContentLoaded', function(){
     injectCSS();
-    var players = document.querySelectorAll('.preroll-player');
-    for (var i=0; i<players.length; i++) initPreroll(players[i]);
+    observePlayers();
   });
 })();
