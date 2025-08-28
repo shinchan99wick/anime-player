@@ -30,7 +30,7 @@
       '<button class="skip-btn">Lewati Iklan</button>' +
       '<div class="ad-countdown">Iklan: <span class="adTime">5</span>s</div>' +
       '<a class="visit-btn" href="https://hancockanime.blogspot.com/" target="_blank">🔗 Kunjungi</a>' +
-      '<video class="mainVideo" controls preload="metadata" style="display:none;" poster="'+poster+'">' +
+      '<video class="mainVideo" controls preload="metadata" poster="'+poster+'" style="opacity:0.3; pointer-events:none;">' +
         '<source src="'+mainSrc+'" type="video/mp4">' +
       '</video>';
 
@@ -72,9 +72,10 @@
       skipBtn.style.display='none';
       countdown.style.display='none';
       visitBtn.style.display='none';
-      mainVideo.style.display='block';
+      mainVideo.style.opacity = "1";
+      mainVideo.style.pointerEvents = "auto";
       mainVideo.play();
-    }
+}
   }
 
   function observePlayers(){
