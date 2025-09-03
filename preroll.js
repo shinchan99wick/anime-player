@@ -20,7 +20,6 @@
   function initPreroll(el){
     var adSrc   = el.getAttribute('data-ad');
     var mainSrc = el.getAttribute('data-main');
-    var poster  = el.getAttribute('data-poster') || '';
 
     el.innerHTML = 
       '<div class="overlay-play"><div class="btn">▶</div></div>' +
